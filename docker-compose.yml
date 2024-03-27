@@ -1,0 +1,9 @@
+services:
+  server:
+    image: ubuntu:18
+    build: .
+    container_name: ubuntu18
+    working_dir: /home/user/workspace
+    volumes:
+      - ./workspace:/home/user/workspace
+    tty: true

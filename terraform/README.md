@@ -35,6 +35,11 @@ terraform apply
 terraform destroy
   [-auto-approve]
 ```
+#### その他
+- 組み込み関数のtest
+```zsh
+terraform console
+```
 ## ブロックタイプ
 |   type    |        description        |
 |:---------:|:-------------------------:|
@@ -106,3 +111,32 @@ var1 = "Sample"
   - `list(<TYPE>)` 特定の型で構成される配列
   - `map(<TYPE>)` stringで構成される配列
   - `set(<TYPE>)` 集合型の配列
+### output
+```terraform
+resource "aws_instance" "sample" {
+ami           = "ami-0253ce315ad0c9655"
+instance_type = "t2.micro"
+}
+# EC2インスタンスのidを出力
+output "ec2_instance_id" {
+  value = aws_instance.sample.id
+}
+```
+### リソース参照
+参照方法: `<BLOCK_TYPE>.<LABEL_1>.<LABEL_2>`  
+example  
+```terraform
+resource "aws_vpc" "vpc" {
+  cidr_block           = "192.168.0.0/20"
+  instance_tenancy     = "default"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+}
+# aws_vpc.vpc.id として参照
+resource "aws_subnet" "public_subnet_1a" {
+  vpc_id                  = aws_vpc.vpc.id
+  availability_zone       = "ap-northeast-1a"
+  cidr_block              = "192.168.1.0/24"
+  map_public_ip_on_launch = true
+}
+```

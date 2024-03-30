@@ -8,6 +8,10 @@ git secrets --install
 ```zsh
 terraform init
 ```
+### formatter
+```terraform
+terraform fmt
+```
 ### 現状のソースコードを元に適用範囲を確認
 引数  
 `[-var <KEY>=<VALUE>]` 変数の指定  
@@ -18,6 +22,7 @@ terraform plan
   [-var-file <VAR_FILE>]
 ```
 ### terraformの適用
+カレントディレクトリのみ適用 サブディレクトリは適用されない  
 引数  
 `[-auto-approve]` 実行計画の確認なし  
 `[-var <KEY>=<VALUE>]` 変数の指定  
